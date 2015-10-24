@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookworm</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <%= link_to 'BookWorm', root_path, :class => 'navbar-brand' %>
+      </div>
+      <div>
+        <ul class="nav navbar-nav">
+          <% if current_user %>
+            <li>
+              <%= link_to current_user.username, edit_user_registration_path %>
+            </li>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+            <li>
+            <%= link_to '<span class="glyphicon glyphicon-log-out"></span> Log Out'.html_safe, destroy_user_session_path, :method => :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to '<span class="glyphicon glyphicon-log-in"></span> Log In'.html_safe, new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to '<span class="glyphicon glyphicon-user"></span> Sign Up'.html_safe, new_user_registration_path %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <% if flash[:notice] -%>
+     <div class = "alert alert-success"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] -%>
+     <div class = "alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+  </div>
+
+  <div class="container">
+    <%= yield %>
+  </div>
+  
+</body>
+</html>
