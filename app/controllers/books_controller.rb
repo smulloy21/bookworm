@@ -8,6 +8,7 @@ class BooksController < ApplicationController
   end
 
   def create
+    @author = Author.where(name = book_params[:authors]) || Author.create(name: book_params[:authors])
     @book = Book.new(book_params)
     if @book.save
       flash[:notice] = "book added"
@@ -18,8 +19,12 @@ class BooksController < ApplicationController
     end
   end
 
+  def show
+    @book = Book.find(params[:id])
+  end
+
   private
   def book_params
-    params.require(:book).permit(:title, :author)
+    params.require(:book).permit(:title, :authors, :publisher, :date, :language_id, :amazon, :goodreads, :img, :description)
   end
 end

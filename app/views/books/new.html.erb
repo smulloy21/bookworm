@@ -3,7 +3,25 @@
 <%= form_for @book do |f| %>
   <%= f.label :title %>
   <%= f.text_field(:title, {:class => 'form-control'}) %>
-  <%= f.label :author %>
-  <%= f.text_field(:author, {:class => 'form-control'}) %>
+  <%= f.fields_for :authors do |s| %>
+    <%= s.label :authors %>
+    <%= s.text_field :name, {:class => 'form-control'} %>
+  <% end %>
+  <%= f.label :publisher %>
+  <%= f.text_field(:publisher, {:class => 'form-control'}) %>
+  <%= f.label :date %>
+  <%= f.date_field(:date, {:class => 'form-control'}) %>
+  <br>
+  <%= f.label :language_id %>
+  <%= f.collection_select(:language_id, Language.all, :id, :name, {:class => 'form-control'}) %>
+  <br>
+  <%= f.label :amazon %>
+  <%= f.text_field(:amazon, {:class => 'form-control'}) %>
+  <%= f.label :goodreads %>
+  <%= f.text_field(:goodreads, {:class => 'form-control'}) %>
+  <%= f.label :img %>
+  <%= f.text_field(:img, {:class => 'form-control'}) %>
+  <%= f.label :description %>
+  <%= f.text_area(:description, {:class => 'form-control'}) %>
   <%= f.submit(:class => 'btn btn-default', :value => 'add book') %>
 <% end %>

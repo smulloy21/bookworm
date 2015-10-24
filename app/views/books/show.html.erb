@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-xs-3">
+    <%= image_tag(@book.img, class: "img-responsive") %>
+  </div>
+  <div class="col-xs-9">
+    <h1> <%= @book.title %> <br><small> <%= @book.authors.map {|author| author.name }.to_sentence  %> </small></h1>
+    <h4><small> <%= @book.publisher %> - <%= @book.date.strftime("%B %d, %Y") %> </small></h4>
+  </div>
+</div>
+<br>
+<h4>Description</h4>
+<p>
+  <%= @book.description %>
+</p>
