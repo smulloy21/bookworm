@@ -2,6 +2,25 @@
 <html>
 <head>
   <title>Bookworm</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/favicons/manifest.json">
+  <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -10,27 +29,35 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <%= link_to 'BookWorm', root_path, :class => 'navbar-brand' %>
+        <%= link_to 'bookworm', root_path, :class => 'navbar-brand' %>
       </div>
       <div>
         <ul class="nav navbar-nav">
           <% if current_user %>
             <li>
-              <%= link_to current_user.username, edit_user_registration_path %>
+              <%= link_to current_user.username, user_path(current_user) %>
             </li>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if current_user %>
+            <% if current_user.site_admin %>
             <li>
-            <%= link_to '<span class="glyphicon glyphicon-log-out"></span> Log Out'.html_safe, destroy_user_session_path, :method => :delete %>
+              <%= link_to 'add a book', new_book_path %>
+            </li>
+            <li>
+              <%= link_to 'all users', userlist_path %>
+            </li>
+            <% end %>
+            <li>
+            <%= link_to '<span class="glyphicon glyphicon-log-out"></span> log out'.html_safe, destroy_user_session_path, :method => :delete %>
             </li>
           <% else %>
             <li>
-              <%= link_to '<span class="glyphicon glyphicon-log-in"></span> Log In'.html_safe, new_user_session_path %>
+              <%= link_to '<span class="glyphicon glyphicon-log-in"></span> log in'.html_safe, new_user_session_path %>
             </li>
             <li>
-              <%= link_to '<span class="glyphicon glyphicon-user"></span> Sign Up'.html_safe, new_user_registration_path %>
+              <%= link_to '<span class="glyphicon glyphicon-user"></span> sign up'.html_safe, new_user_registration_path %>
             </li>
           <% end %>
         </ul>
@@ -50,6 +77,6 @@
   <div class="container">
     <%= yield %>
   </div>
-  
+
 </body>
 </html>

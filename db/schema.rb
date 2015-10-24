@@ -11,16 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024025741) do
+ActiveRecord::Schema.define(version: 20151024072443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "books", force: :cascade do |t|
-    t.string   "title"
-    t.string   "author"
+  create_table "authors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "bio"
+    t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "authors_books", force: :cascade do |t|
+    t.integer "author_id"
+    t.integer "book_id"
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "publisher"
+    t.datetime "date"
+    t.integer  "language_id"
+    t.string   "amazon"
+    t.string   "goodreads"
+    t.string   "description"
+    t.string   "img"
   end
 
   create_table "books_tags", id: false, force: :cascade do |t|
@@ -30,6 +49,11 @@ ActiveRecord::Schema.define(version: 20151024025741) do
 
   add_index "books_tags", ["book_id"], name: "index_books_tags_on_book_id", using: :btree
   add_index "books_tags", ["tag_id"], name: "index_books_tags_on_tag_id", using: :btree
+
+  create_table "books_translators", force: :cascade do |t|
+    t.integer "translator_id"
+    t.integer "book_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "discussion_id"
@@ -68,6 +92,12 @@ ActiveRecord::Schema.define(version: 20151024025741) do
     t.datetime "updated_at"
   end
 
+  create_table "languages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.integer  "discussion_id"
     t.string   "title"
@@ -83,20 +113,27 @@ ActiveRecord::Schema.define(version: 20151024025741) do
     t.datetime "updated_at"
   end
 
+  create_table "translators", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",               default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "site_admin",             default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

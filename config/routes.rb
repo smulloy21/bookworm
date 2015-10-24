@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root to: 'books#index'
   resources :books
   resources :tags
+  resources :users, only: [:index, :show]
+  get 'userlist', to: 'users#index', as: 'userlist'
 end

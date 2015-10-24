@@ -1,0 +1,9 @@
+<h1>add a book</h1>
+
+<%= form_for @book do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field(:title, {:class => 'form-control'}) %>
+  <%= f.label :author %>
+  <%= f.text_field(:author, {:class => 'form-control'}) %>
+  <%= f.submit(:class => 'btn btn-default', :value => 'add book') %>
+<% end %>

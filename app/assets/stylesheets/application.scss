@@ -15,3 +15,11 @@
  */
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+body {
+  font-family: 'Lora', serif;
+}
+
+nav.navbar {
+  border-radius: 0;
+}
